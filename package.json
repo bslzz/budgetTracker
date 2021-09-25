@@ -1,0 +1,22 @@
+{
+  "name": "myexpenses",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run start --prefix client",
+    "dev": "npm run server & npm run client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bslzz/budgetTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bslzz/budgetTracker/issues"
+  },
+  "homepage": "https://github.com/bslzz/budgetTracker#readme"
+}
