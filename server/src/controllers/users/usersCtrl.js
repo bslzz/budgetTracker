@@ -1,5 +1,6 @@
 const User = require('../../models/User')
 const bcrypt = require('bcryptjs')
+const generateToken = require('../../middleware/generateToken')
 
 const registerUser = async (req, res) => {
   try {
@@ -35,4 +36,34 @@ const fetchAllUsers = async (req, res) => {
   }
 }
 
-module.exports = { registerUser, fetchAllUsers }
+const loginUsers = async (req, res) => {
+  try {
+    const { email, password } = req?.body
+    if (!email || !password) {
+      return res.status(422).json({ error: 'All fields are required' })
+    }
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(422).json({ error: 'User does not exist' })
+    }
+    const matchPasswords = await bcrypt.compare(password, user.password)
+    if (!matchPasswords) {
+      return res.status(422).json({ error: 'Invalid email/password' })
+    }
+    const token = generateToken(user._id)
+    res.status(200).json({
+      success: true,
+      data: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token
+      }
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+module.exports = { registerUser, fetchAllUsers, loginUsers }
