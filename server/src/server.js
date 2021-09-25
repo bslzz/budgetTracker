@@ -10,6 +10,8 @@ dbConnect()
 // middleware
 app.use(express.json())
 
+app.get('/', (req, res) => res.json({ message: 'Hello there' }))
+
 // routes
 app.use('/api/users', require('./routes/usersRoute'))
 
