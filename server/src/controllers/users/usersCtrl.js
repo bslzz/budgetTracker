@@ -29,8 +29,8 @@ const registerUser = async (req, res) => {
 
 const fetchAllUsers = async (req, res) => {
   try {
-    const user = await User.find()
-    res.status(200).json({ success: true, data: user })
+    const users = await User.find()
+    res.status(200).json({ success: true, data: users })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
